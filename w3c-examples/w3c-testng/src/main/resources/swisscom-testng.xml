@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Visual Demo Suite" parallel="tests" thread-count="10">
+
+    <test name="Visual Chrome Latest Windows10 1920x1200" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Visual Chrome Latest Windows10 1920x1200"></parameter>
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="1920x1200"/>
+        <parameter name="platformName" value="windows 10"/>
+        <classes>
+            <class name="test.swisscom.SwisscomVisualDemo"/>
+        </classes>
+    </test> <!-- Test -->
+
+    <test name="Visual Firefox Latest Windows10 1920x1200" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Visual Firefox Latest Windows10 1920x1200"></parameter>
+        <parameter name="browserName" value="firefox"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="1920x1200"/>
+        <parameter name="platformName" value="windows 10"/>
+        <classes>
+            <class name="test.swisscom.SwisscomVisualDemo"/>
+        </classes>
+    </test> <!-- Test -->
+
+    <test name="Visual Safari Latest macOS 10.15 1920x1200" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Visual Safari Latest MacOS 1920x1200"></parameter>
+        <parameter name="browserName" value="safari"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="1920x1200"/>
+        <parameter name="platformName" value="macOS 10.15"/>
+        <classes>
+            <class name="test.swisscom.SwisscomVisualDemo"/>
+        </classes>
+    </test> <!-- Test -->
+
+    <test name="Visual Chrome Latest Windows10 414x896" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Visual Chrome Latest Windows10 414x896"></parameter>
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="414x896"/>
+        <parameter name="platformName" value="windows 10"/>
+        <classes>
+            <class name="test.swisscom.SwisscomVisualDemo"/>
+        </classes>
+    </test> <!-- Test -->
+
+    <test name="Visual Firefox Latest Windows10 414x896" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Visual Firefox Latest Windows10 414x896"></parameter>
+        <parameter name="browserName" value="firefox"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="414x896"/>
+        <parameter name="platformName" value="windows 10"/>
+        <classes>
+            <class name="test.swisscom.SwisscomVisualDemo"/>
+        </classes>
+    </test> <!-- Test -->
+
+    <test name="Visual Safari Latest macOS 10.15 414x896" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Visual Safari Latest MacOS 414x896"></parameter>
+        <parameter name="browserName" value="safari"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="414x896"/>
+        <parameter name="platformName" value="macOS 10.15"/>
+        <classes>
+            <class name="test.swisscom.SwisscomVisualDemo"/>
+        </classes>
+    </test> <!-- Test -->
+
+</suite> <!-- Suite -->

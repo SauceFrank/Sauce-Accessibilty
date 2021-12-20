@@ -35,8 +35,10 @@ public class mapRunner {
 
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", "iOS");
-        //caps.setCapability("platformVersion", "12.3.1");
-        //caps.setCapability("deviceName", "iPhone_SE_16_GB_POC01");
+        caps.setCapability("browserName", "Safari");
+        caps.setCapability("platformVersion", "12.2");
+        caps.setCapability("deviceName", "iPhone 7 Simulator");
+        caps.setCapability("deviceOrientation", "Portrait");
         caps.setCapability("build", "AW Map Runner");
         //caps.setCapability("appiumVersion", "1.17.0");
 

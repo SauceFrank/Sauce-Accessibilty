@@ -22,13 +22,13 @@ public class simpleSwagLabsAndroid {
 
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", "Android");
-        caps.setCapability("platformVersion", "9");
+        caps.setCapability("platformVersion", "10");
         //caps.setCapability("deviceName", "Samsung Galaxy S9 WQHD GoogleAPI Emulator");
         caps.setCapability("appiumVersion", "1.17.1");
         caps.setCapability("browserName", "");
         caps.setCapability("deviceOrientation", "portrait");
-        //caps.setCapability("build", "Andy Simple Swag Android Test");
-        caps.setCapability("app", "storage:21f9558c-044f-48e3-8fb0-7c54dfb3141d");
+        caps.setCapability("build", "Andy Simple Swag Android Test");
+        caps.setCapability("app", "storage:78125083-fc97-4017-916c-b8ec3b7db175");
 
         System.out.println("** creating driver **");
         driver = new AndroidDriver(new URL("https://" + username + ":" + accesskey + seleniumURI + "/wd/hub"), caps);

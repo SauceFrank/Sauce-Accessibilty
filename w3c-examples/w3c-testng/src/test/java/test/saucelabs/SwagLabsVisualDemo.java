@@ -38,6 +38,7 @@ public class SwagLabsVisualDemo {
         String username = System.getenv("SAUCE_USERNAME");
         String accessKey = System.getenv("SAUCE_ACCESS_KEY");
         String visualApiKey = System.getenv("SAUCE_VISUAL_API_KEY");
+
         methodName = method.getName();
 
         demoPrefix = "SwagLabs";
@@ -48,6 +49,8 @@ public class SwagLabsVisualDemo {
 
         MutableCapabilities sauceVisual = new MutableCapabilities();
         sauceVisual.setCapability("apiKey", visualApiKey);
+        //sauceVisual.setCapability("group", visualGroup);
+
         //sauceVisual.setCapability("projectName", demoPrefix + " Homepage-" + viewportSize);
         sauceVisual.setCapability("projectName", demoPrefix + " Homepage");
         sauceVisual.setCapability("viewportSize", viewportSize);
@@ -124,13 +127,14 @@ public class SwagLabsVisualDemo {
 
         // capture screen with sort menu shown
         el1 = null;
-        el1 = driver.findElement(By.cssSelector("#inventory_filter_container > select"));
+
+        el1 = driver.findElement(By.cssSelector("#header_container > div.header_secondary_container > div.right_component > span > select"));
         el1.click();
         driver.executeScript("/*@visual.snapshot*/", "Swag Labs - Product Page with sort menu shown");
 
         // Sort the items differently
         el1 = null;
-        el1 = driver.findElement(By.cssSelector("#inventory_filter_container > select > option:nth-child(2)"));
+        el1 = driver.findElement(By.cssSelector("#header_container > div.header_secondary_container > div.right_component > span > select > option:nth-child(2)"));
         el1.click();
         driver.executeScript("/*@visual.snapshot*/", "Swag Labs - Product Page - Z2A");
 
@@ -141,14 +145,8 @@ public class SwagLabsVisualDemo {
             menuItem = 4;
         }
         el1 = null;
-        el1 = driver.findElement(By.cssSelector("#inventory_filter_container > select > option:nth-child(" + menuItem + ")"));
+        el1 = driver.findElement((By.cssSelector("#header_container > div.header_secondary_container > div.right_component > span > select > option:nth-child(" + menuItem + ")")));
         el1.click();
-
-        //optionally mess with some a style
-        el1 = null;
-        el1 = driver.findElement(By.cssSelector("#inventory_container > div > div:nth-child(1) > div.pricebar > button"));
-        driver.executeScript("/*@visual.snapshot*/", "Swag Labs - Product Page - Random Order");
-
     }
 
     @AfterMethod

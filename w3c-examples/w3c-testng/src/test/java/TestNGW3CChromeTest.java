@@ -54,6 +54,7 @@ public class TestNGW3CChromeTest {
         sauceOpts.setCapability("username", username);
         sauceOpts.setCapability("accessKey", accessKey);
         sauceOpts.setCapability("tags", "w3c-chrome-tests");
+        sauceOpts.setCapability("idleTimeout", 310);
 
         /** Below we see the use of our other capability objects, 'chromeOpts' and 'sauceOpts',
          defined in ChromeOptions.CAPABILITY and sauce:options respectively.
@@ -80,8 +81,11 @@ public class TestNGW3CChromeTest {
     For more information visit the docs: http://static.javadoc.io/org.testng/testng/6.9.4/org/testng/annotations/Test.html
      */
     @Test
-    public void TestNGw3cChromeTest() throws AssertionError {
+    public void TestNGw3cChromeTest() throws AssertionError, InterruptedException {
         driver.navigate().to("https://www.saucedemo.com");
+
+        Thread.sleep(300000);
+
         String getTitle = driver.getTitle();
         Assert.assertEquals(getTitle, "Swag Labs");
     }

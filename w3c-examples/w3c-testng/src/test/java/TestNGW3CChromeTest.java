@@ -67,7 +67,7 @@ public class TestNGW3CChromeTest {
         caps.setCapability("platformName", "windows 10");
 
         /** Finally, we pass our DesiredCapabilities object 'caps' as a parameter of our RemoteWebDriver instance */
-        String sauceUrl = "https://ondemand.saucelabs.com:443/wd/hub";
+        String sauceUrl = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
         URL url = new URL(sauceUrl);
         driver = new RemoteWebDriver(url, caps);
     }

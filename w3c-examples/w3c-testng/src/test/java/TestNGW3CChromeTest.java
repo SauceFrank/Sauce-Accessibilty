@@ -1,106 +1,76 @@
-import org.openqa.selenium.JavascriptExecutor;
+import com.deque.html.axecore.results.Results;
+import com.deque.html.axecore.selenium.AxeBuilder;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TestName;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TestNGW3CChromeTest {
-    protected WebDriver driver;
+/**
+ * Accessibility Tests with Deque Library.
+ */
+public class DequeAxeTest {
+    public RemoteWebDriver driver;
 
-    /**
-     * @BeforeMethod is a TestNG annotation that defines specific prerequisite test method behaviors.
-    In the example below we:
-    - Define Environment Variables for Sauce Credentials ("SAUCE_USERNAME" and "SAUCE_ACCESS_KEY")
-    - Define Chrome Options such as W3C protocol
-    - Define the "sauce:options" capabilities, indicated by the "sauceOpts" MutableCapability object
-    - Define the WebDriver capabilities, indicated by the "caps" DesiredCapabilities object
-    - Define the service URL for communicating with SauceLabs.com indicated by "sauceURL" string
-    - Set the URL to sauceURl
-    - Set the driver instance to a RemoteWebDriver
-    - Pass "url" and "caps" as parameters of the RemoteWebDriver
-    For more information visit the docs: http://static.javadoc.io/org.testng/testng/6.9.4/org/testng/annotations/BeforeMethod.html
-     */
-    @BeforeMethod
-    public void setup(Method method) throws MalformedURLException {
-        String username = System.getenv("SAUCE_USERNAME");
-        String accessKey = System.getenv("SAUCE_ACCESS_KEY");
-        String methodName = method.getName();
+    @Rule
+    public SauceTestWatcher watcher = new SauceTestWatcher();
 
-        /** ChomeOptions allows us to set browser-specific behavior such as profile settings, headless capabilities, insecure tls certs,
-         and in this example--the W3C protocol
-         For more information see: https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/chrome/ChromeOptions.html */
+    @Rule
+    public TestName name = new TestName() {
+        public String getMethodName() {
+            return String.format("%s", super.getMethodName());
+        }
+    };
 
-        ChromeOptions chromeOpts = new ChromeOptions();
-        chromeOpts.setExperimentalOption("w3c", true);
-
-        /** The MutableCapabilities class  came into existence with Selenium 3.6.0 and acts as the parent class for
-         all browser implementations--including the ChromeOptions class extension.
-         Fore more information see: https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/MutableCapabilities.html */
-
+    @Before
+    public void setup() throws MalformedURLException {
         MutableCapabilities sauceOpts = new MutableCapabilities();
-        sauceOpts.setCapability("name", methodName);
-        sauceOpts.setCapability("build", "Java-W3C-Examples");
-        sauceOpts.setCapability("seleniumVersion", "3.141.59");
-        sauceOpts.setCapability("username", username);
-        sauceOpts.setCapability("accessKey", accessKey);
-        sauceOpts.setCapability("tags", "w3c-chrome-tests");
-        sauceOpts.setCapability("idleTimeout", 310);
+        sauceOpts.setCapability("name", name.getMethodName());
+        sauceOpts.setCapability("username", System.getenv("SAUCE_USERNAME"));
+        sauceOpts.setCapability("accessKey", System.getenv("SAUCE_ACCESS_KEY"));
+        sauceOpts.setCapability("extendedDebugging",true);
+        sauceOpts.setCapability("capturePerformance",true);
 
-        /** Below we see the use of our other capability objects, 'chromeOpts' and 'sauceOpts',
-         defined in ChromeOptions.CAPABILITY and sauce:options respectively.
-         */
-        DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setCapability(ChromeOptions.CAPABILITY,  chromeOpts);
-        caps.setCapability("sauce:options", sauceOpts);
-        caps.setCapability("browserName", "googlechrome");
-        caps.setCapability("browserVersion", "latest");
-        caps.setCapability("platformName", "windows 10");
-
-        /** Finally, we pass our DesiredCapabilities object 'caps' as a parameter of our RemoteWebDriver instance */
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setCapability("sauce:options", sauceOpts);
+// US
+        String sauceUrl = "https://ondemand.us-west-1.saucelabs.com/wd/hub";
+/* EU        
         String sauceUrl = "https://ondemand.eu-central-1.saucelabs.com/wd/hub";
-        URL url = new URL(sauceUrl);
-        driver = new RemoteWebDriver(url, caps);
+*/
+        driver = new RemoteWebDriver(new URL(sauceUrl), chromeOptions);
     }
 
-    /**
-     * @Test is a TestNG annotation that defines the actual test case, along with the test execution commands.
-    In the example below we:
-    - Navigate to our SUT (site under test), 'https://www.saucedemo.com'
-    - Store the current page title in a String called 'getTitle'
-    - Assert that the page title equals "Swag Labs"
-    For more information visit the docs: http://static.javadoc.io/org.testng/testng/6.9.4/org/testng/annotations/Test.html
-     */
     @Test
-    public void TestNGw3cChromeTest() throws AssertionError, InterruptedException {
+    public void accessibilityTest() {
         driver.navigate().to("https://www.saucedemo.com");
-
-        Thread.sleep(300000);
-
-        String getTitle = driver.getTitle();
-        Assert.assertEquals(getTitle, "Swag Labs");
+        AxeBuilder axeBuilder = new AxeBuilder();
+        Results accessibilityResults = axeBuilder.analyze(driver);
+        Assert.assertEquals(3, accessibilityResults.getViolations().size());
     }
-    /**
-     * @AfterMethod is a TestNG annotation that defines any postrequisite test method tasks .
-    In the example below we:
-    - Pass the ITestResult class results to a parameter called 'result'
-    - Use the JavascriptExecutor class to send our test 'result' to Sauce Labs with a "passed" flag
-    if the test was successful, or a "failed" flag if the test was unsuccessful.
-    - Teardown the RemoteWebDriver session with a 'driver.quit()' command so that the test VM doesn't hang.
-    For more information visit the docs: http://static.javadoc.io/org.testng/testng/6.9.4/org/testng/annotations/AfterMethod.html
-     */
-    @AfterMethod
-    public void teardown(ITestResult result) {
-        ((JavascriptExecutor)driver).executeScript("sauce:job-result=" + (result.isSuccess() ? "passed" : "failed"));
-        driver.quit();
+
+    private class SauceTestWatcher extends TestWatcher {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            driver.executeScript("sauce:job-result=failed");
+        }
+
+        @Override
+        protected void succeeded(Description description) {
+            driver.executeScript("sauce:job-result=passed");
+        }
+
+        @Override
+        protected void finished(Description description) {
+            driver.quit();
+        }
     }
 }

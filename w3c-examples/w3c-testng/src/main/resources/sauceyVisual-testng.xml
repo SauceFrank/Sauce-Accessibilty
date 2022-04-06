@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Visual Demo Suite" parallel="tests" thread-count="10">
+
+    <test name="Visual Chrome Latest Windows10 1920x1200" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Saucey Visual Chrome Latest Windows10 1920x1200"></parameter>
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="1920x1200"/>
+        <parameter name="platformName" value="windows 10"/>
+        <classes>
+            <class name="test.saucelabs.SauceyVisualDemo"/>
+        </classes>
+    </test> <!-- Test -->
+
+    <!--
+    <test name="Visual Firefox Latest Windows10 1920x1200" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Saucey Visual Firefox Latest Windows10 1920x1200"></parameter>
+        <parameter name="browserName" value="firefox"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="1920x1200"/>
+        <parameter name="platformName" value="windows 10"/>
+        <classes>
+            <class name="test.saucelabs.SauceyVisualDemo"/>
+        </classes>
+    </test>
+
+    <test name="Visual Chrome Latest Windows10 414x896" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Saucey Visual Chrome Latest Windows10 414x896"></parameter>
+        <parameter name="browserName" value="chrome"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="414x896"/>
+        <parameter name="platformName" value="windows 10"/>
+        <classes>
+            <class name="test.saucelabs.SauceyVisualDemo"/>
+        </classes>
+    </test>
+
+    <test name="Visual Firefox Latest Windows10 414x896" parallel="tests" thread-count="10">
+        <parameter name="testName" value="Saucey Visual Firefox Latest Windows10 414x896"></parameter>
+        <parameter name="browserName" value="firefox"/>
+        <parameter name="browserVersion" value="latest"/>
+        <parameter name="viewportSize" value="414x896"/>
+        <parameter name="platformName" value="windows 10"/>
+        <classes>
+            <class name="test.saucelabs.SauceyVisualDemo"/>
+        </classes>
+    </test>
+    -->
+
+</suite> <!-- Suite -->
